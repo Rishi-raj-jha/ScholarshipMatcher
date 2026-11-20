@@ -408,7 +408,7 @@ function fillProfileForm(profile) {
 
 function updateHeader() {
   const name = student.name || "Guest Student";
-  const subtitle = $("headerName")?.nextElementSibling?.querySelector("small");
+  const subtitle = $("headerName")?.parentElement?.querySelector("small");
   if (subtitle) subtitle.textContent = activeStudentId ? "Saved student profile" : "Temporary guest check";
 
   if ($("headerName")) {
@@ -1293,7 +1293,8 @@ function setAccountUI(account) {
     if ($("returnAccountBtn")) $("returnAccountBtn").hidden = true;
     $("headerName").textContent = account.name;
     $("userAvatar").textContent = account.name.charAt(0).toUpperCase();
-    $("headerName").nextElementSibling.querySelector("small").textContent = "Signed-in account";
+    const subtitle = $("headerName")?.parentElement?.querySelector("small");
+    if (subtitle) subtitle.textContent = "Signed-in account";
   } else { if ($("guestCheckBtn")) $("guestCheckBtn").textContent = "Check as Guest →"; if ($("profileForm")?.querySelector('button[type="submit"]')) $("profileForm").querySelector('button[type="submit"]').textContent = "Save profile on this device"; if ($("returnAccountBtn")) $("returnAccountBtn").hidden = true; updateHeader(); }
 }
 $("returnAccountBtn")?.addEventListener("click", async () => {
